@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/demo.css' %}">
+</head>
+
+
+
+<h4 class="awesome">Analysed !</h4>
+
+
+<p style="margin-top: 20px; margin-left : 10px">Get Students list rankwise :</p>
+
+
+<hr style="border-top: 2px dotted red;">
+<p style="background-color: #3ec08e; text-align:center; font-size:larger; text-decoration:underline; font-weight:bold">
+
+    <a type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="True"
+        aria-controls="collapseExample" style="margin-left: 40px;">Students list by Rank
+        <button class="btn btn-primary"><i class="fas fa-arrows-alt-v"></i></button></a>
+</p>
+<div class="collapse show" id="collapseExample">
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" style="font-size:medium; font-weight:bold">#</th>
+                <th scope="col" style="font-size:medium; font-weight:bold">Student Name</th>
+                <th scope="col" style="font-size:medium; font-weight:bold">Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for studentinfo in studentranking %}
+            {% if studentinfo.1 != 0.0 %}
+            <tr>
+                {% if forloop.counter <= 2 %}
+                <th scope="row" style="font-size:medium; font-weight:bold">{{forloop.counter}}</th>
+                <td style="font-size:medium; font-weight:bold">{{studentinfo.0}}</td>
+                <td style="font-size:medium; font-weight:bold">{{studentinfo.1}}
+                </td>
+
+                {% endif %}
+            </tr>
+            {% endif %}
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <hr>
+    <p style="font-size: smaller; text-align:end; margin-right:15px; color:gray"> ** to get full list of students
+        rankwise please
+        login
+        to the website</p>
+</div>
+
+<p style="margin-left: 10px;"> Get Subject Result :</p>
+
+<hr style="border-top: 2px dotted red;">
+
+<p style="background-color: #3ec08e; text-align:center; font-size:larger; text-decoration:underline; font-weight:bold">
+
+    <a type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="True"
+        aria-controls="collapseExample" style="margin-left: 40px;">Subject Result
+        <button class="btn btn-primary"><i class="fas fa-arrows-alt-v"></i></button></a>
+</p>
+
+<div class="collapse show" id="collapseExample2">
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" style="font-size:medium; font-weight:bold">#</th>
+                <th scope="col" style="font-size:medium; font-weight:bold">Subject Code</th>
+                <th scope="col" style="font-size:medium; font-weight:bold">Failed</th>
+                <th scope="col" style="font-size:medium; font-weight:bold">Total Appeared</th>
+                <th scope="col" style="font-size:medium; font-weight:bold">% Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for subcode, result in subjectresult.items %}
+            <tr>
+                {% if forloop.counter <= 3 %}
+                <th scope="row" style="font-size:medium; font-weight:bold">{{forloop.counter}}</th>
+                <td style="font-size:medium; font-weight:bold">{{subcode}}</td>
+                <td style="font-size:medium; font-weight:bold">{{result.0}}</td>
+                <td style="font-size:medium; font-weight:bold">{{result.1}}</td>
+                <td style="font-size:medium; font-weight:bold">{{result.2}}
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{result.2 }}%"
+                            aria-valuenow="{{studentinfo.i}}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <hr>
+    <p style="font-size: smaller; text-align:end; margin-right:15px; color:gray"> ** to get result of all the subjects
+        please
+        login
+        to the website</p>
+</div>
+
+<p style="margin-left:10px"> Get failed Students list in respective subject :</p>
+
+<hr style="border-top: 2px dotted red;">
+
+
+<p style="background-color: #3ec08e; text-align:center; font-size:larger; text-decoration:underline; font-weight:bold">
+
+    <a type="button" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="True"
+        aria-controls="collapseExample" style="margin-left: 40px;">Failed students list in respective subject
+        <button class="btn btn-primary"><i class="fas fa-arrows-alt-v"></i></button></a>
+</p>
+
+<div class="collapse show" id="collapseExample3">
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" style="font-size:medium; font-weight:bold">#</th>
+                <th scope="col" style="font-size:medium; font-weight:bold">Subject Code</th>
+                <th scope="col" style="font-size:medium; font-weight:bold">Failed Students Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x,y in failednamesinsubject.items %}
+            {% if forloop.counter <= 3 %}
+            <tr>
+                <th scope="row" style="font-size:medium; font-weight:bold">{{forloop.counter}}</th>
+                <th scope="row" style="font-size:medium; font-weight:bold">{{x}}</th>
+                <td style="font-size:medium; font-weight:bold">{{y}}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <hr>
+    <p style="font-size: smaller; text-align:end; margin-right:15px; color:gray"> ** to get full list of subjects
+        please
+        login
+        to the website</p>
+</div>
+
+<hr style="border-top: 2px dotted red;">
+
+
+
+{% endblock content %}

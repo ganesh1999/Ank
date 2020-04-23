@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/home.css' %}">
+</head>
+<!-- Jumbotron -->
+
+<div class="jumbotron">
+    <div class="text-white text-center py-5 px-4">
+        <div class="py-5">
+            <div class="py-5">
+                <!-- Content -->
+                <h5 class="h5 blue-text"><i class="fas fa-chart-pie mr-3 "></i>Analysis</h5>
+                <h2 class="card-title h2 my-4 py-2">Analyse SPPU mark-sheet</h2>
+                <p class="mb-4 pb-2 px-md-5 mx-md-5">Specially build for mentors and teachers to get fast, accurate
+                    and reliable result analysis for their respective subject or class and mentees.
+                </p>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="myfile">
+                    <button class="btn aqua-gradient btn-rounded " type="submit"><i
+                            class="fas fa-chart-line mr-3"></i>Get
+                        Result</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!--How to Section-->
+<div style="background-color: rgb(213, 218, 218);">
+
+    <h1 class="Howto">How it Works!</h1>
+
+
+    <!--.row -->
+</div>
+<!--./container -->
+<section id="step">
+    <div class="container">
+        <div class="row" style="margin-bottom: 50px;">
+            <div class="col-md-4">
+                <h4>How To Use This Website ?</h4>
+                <hr>
+                <p>
+                    This website provides analysis tool for the result provided by SPPU.
+                    Generally it is very hard to analyse the results for each subject according to
+                    pdf format of result provided by SPPU. Considering this problems we have developed
+                    an algorithm which analyses the pdf result and directy outputs it, which then also
+                    downloadable in pdf format.
+                    <br>
+                    <hr>
+                    The following video shows all the steps to use the website
+                </p>
+
+            </div>
+            <!--.col -->
+
+            <div class="col-md-8">
+                <div class="vid">
+                    <iframe width="560" height="315" src="//www.youtube.com/embed/YUhdpIOb3Zc"
+                        allowfullscreen=""></iframe>
+                </div>
+                <!--./vid -->
+
+            </div>
+            <!--.col -->
+
+        </div>
+        <!--./row -->
+
+    </div>
+</section>
+<!--./container -->
+
+<!--Team Details-->
+<div style="background-color: rgb(213, 218, 218);">
+
+    <h1 class="Howto">Our Team</h1>
+
+
+    <!--.row -->
+</div>
+<section id="team" class="pb-5">
+    <div class="container">
+        <div class="row">
+            <!-- Team member -->
+            <div class="col-sm-6">
+                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                    <div class="mainflip">
+                        <div class="frontside">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <p><img class=" img-fluid" src="{% static 'images/theblockmatrix.png'%}"
+                                            alt="card image"></p>
+                                    <h4 class="card-title">Ganesh Deshpande</h4>
+                                    <p class="card-text">Full Stack Programmer</p>
+                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backside">
+                            <div class="card">
+                                <div class="card-body text-center mt-4">
+                                    <h4 class="card-title">Ganesh Deshpande</h4>
+                                    <p class="card-text"
+                                        style="font-weight : 500; color : black; text-decoration:underline">Info:
+                                    </p>
+                                    <p class="card-text">Student of D.Y.Patil College of Engineering, pune. Department :
+                                        Instrumentation and Control Engineering
+                                    </p>
+                                    <p class="card-text"
+                                        style="font-weight : 500; color : black; text-decoration:underline">Contact
+                                        Details:
+                                    </p>
+                                    <p class="card-text"> Email : theblockmatrix@gmail.com</p>
+                                    <p class="card-text">Phone : +918788388039</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ./Team member -->
+            <!-- Team member -->
+            <div class="col-sm-6">
+                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                    <div class="mainflip">
+                        <div class="frontside">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <p><img class=" img-fluid" src="{% static 'images/aniket.jpg'%}" alt="card image">
+                                    </p>
+                                    <h4 class="card-title">Aniket Savji</h4>
+                                    <p class="card-text">Full Stack Programmer</p>
+                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backside">
+                            <div class="card">
+                                <div class="card-body text-center mt-4">
+                                    <h4 class="card-title">Aniket Savji</h4>
+                                    <p class="card-text"
+                                        style="font-weight : 500; color : black; text-decoration:underline">Info:
+                                    </p>
+                                    <p class="card-text">Student of PVG's College of Engineering, pune. Department :
+                                        Electrical Engineering
+                                    </p>
+                                    <p class="card-text"
+                                        style="font-weight : 500; color : black; text-decoration:underline">Contact
+                                        Details:
+                                    </p>
+                                    <p class="card-text"> Email : ankasaw99@gmail.com</p>
+                                    <p class="card-text">Phone : +919404896299</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

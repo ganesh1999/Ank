@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<h3 style="text-align:center; margin-top:20px; text-decoration:underline">
+    Logged in as {{user.username}}
+</h3>
+
+{% endif %}
+
+<h4 style="margin-top: 20px; margin-left:10px">Previous Orders : </h4>
+
+
+{% if Userdata %}
+
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" style="font-size:medium; font-weight:bold">#</th>
+            <th scope="col" style="font-size:medium; font-weight:bold">Files</th>
+            <th scope="col" style="font-size:medium; font-weight:bold">Date_Of_Purchase</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in Userdata  %}
+        <tr>
+            <th scope="row" style="font-size:medium; font-weight:bold">{{forloop.counter}}</th>
+            <td style="font-size:medium; font-weight:bold;"><a style="color:rgb(0, 140, 255);text-decoration:underline"
+                    href="{{i.orders.url}}">
+                    {{i.orders}}</a></td>
+            <td style="font-size:medium; font-weight:bold">{{i.date_created}}</td>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+<hr>
+
+{% else %}
+<p style="margin-top: 20px; margin-left:20px; font-size:large"> - No Previous Orders</p>
+
+
+{% endif %}
+
+
+{% endblock content %}
