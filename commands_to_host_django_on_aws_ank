@@ -1,0 +1,188 @@
+   ###########################   important commands to host django(ANK) on aws   #######################################
+
+##############   important things to do after cloning project #########################
+
+	--   file path will be like something   Ank/Ank/(path containing manage.py file also one folder with ANK name which 								         contains settings.py file)
+	--   rename the ANK after Ank to myproject it wil look like Ank/myproject/('')
+	--   move templates folder from user into ANK direcory 
+	--   add following line in settings.py DIR in templates
+		TEMPLATES = [
+		    {
+			'BACKEND': 'django.template.backends.django.DjangoTemplates',
+					--> this line <--	
+			'DIRS': [os.path.join(BASE_DIR, 'ANK/templates')],
+					    -->  <--
+			'APP_DIRS': True,
+			'OPTIONS': {
+			    'context_processors': [
+				'django.template.context_processors.debug',
+				'django.template.context_processors.request',
+				'django.contrib.auth.context_processors.auth',
+				'django.contrib.messages.context_processors.messages',
+			    ],
+			},
+		    },
+		]
+
+
+
+
+connect with server via ssh
+
+--- check if python3 is installed   --   python3 --version
+--- install python virtual env      --   sudo apt-get install python3-venv
+--- create python virtual env       --   python3 -m venv env
+--- activate python virtual env     --   source env/bin/activate
+--- install django                  --   pip3 install django
+--- check django version            --   python3 -m django --version
+--- copy django project from github --   git clone 'link to git project'
+--  install xhtml                   --   pip3 install xhtml2pdf
+--  install pypdf                   --   pip3 install PyPDF2
+--  install gunicorn                --   pip3 install gunicorn
+--  install nginx                   --   sudo apt-get install -y nginx
+--  activate nginx                  --   sudo nginx 
+
+
+----------------------    change security groups add rule for port 80 
+                              and check for welcome page from nginx     ----------------------------------------
+
+
+---  head to the project directory project level not the app level and bing gunicorn -- 
+
+--- command -->       gunicorn --bind 0.0.0.0:8000 ANK.wsgi:application
+
+---   change security groups add rule  custom 8000 anywhere  -----
+-----  then check for   public ip address:8000  if you are getting you project correctly ---
+
+
+--- install supervisor  -->  sudo apt-get install -y supervisor
+
+---------------------------      creating gunicorn configuration file in supervisor     ----------------------------
+
+
+commands -->  cd /etc/supervisor/conf.d/
+	 -->  sudo touch gunicorn.conf
+	 -->  sudo nano gunicorn.conf
+
+
+contents in gunicorn file to add --->
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+[program:gunicorn]
+directory=/home/ubuntu/Ank/myproject
+command=/home/ubuntu/env/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/Ank/myproject/app.sock ANK.wsgi:application
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/gunicorn/gunicorn.err.log
+stdout_logfile=/var/log/gunicorn/gunicorn.out.log
+
+[group:guni]
+programs:gunicorn
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+press ctr+o, Enter  , ctr+x
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+
+still in /etc/supervisor/conf.d/
+
+commands -->   sudo mkdir /var/log/gunicorn
+         -->   sudo supervisorctl reread                     output --> guni availble
+	 -->   sudo supervisorctl update                            --> guni : added process group
+	 -->   sudo supervisorctl status			    --> RUNNING PID ....
+	 -->   cd   --(come to default directory)
+	
+
+------------------------------------------------------------   done for supervisor    -------------------------------------------
+
+-----------------------------------------------          now for nginx configuration          ------------------------
+
+
+
+
+ -->   cd /etc/nginx/sites-available
+ -->   sudo touch django.conf
+ -->   sudo nano django.conf
+
+------------------------------  contents to write in django.conf  -----------------------------------------------------
+
+server {
+	listen 80;
+	server_name  publicdnsname(elasticIP);
+	
+
+	location / {
+		include proxy_params;
+		proxy_pass http://unix:/home/ubuntu/Ank/ANK/app.sock;
+	}
+
+	# for serving static files from django usign nginx
+
+	location /static/ {
+		autoindex on;
+		alias /home/ubuntu/Ank/myproject/static;  ##  static folder directory
+	}
+
+	# for serving media files from django using nginx (serves and also uploads)
+	
+	location /media/ {
+		autoindex on;
+		alias /home/ubuntu/Ank/myproject/media;  ## media folder directory
+	}
+
+
+}
+
+
+-----------------------------------------------------------------------------------
+
+  -->  sudo nginx -t                   --> syntax is ok ; test is successful
+  -->  sudo ln django.conf /etc/nginx/sites-enabled/
+  -->  sudo nginx -t                    -->  syntx is .....
+
+  -->  sudo service nginx restart
+
+
+site should appear on public ip directly
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
