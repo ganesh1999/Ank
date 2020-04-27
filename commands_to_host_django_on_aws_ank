@@ -150,6 +150,21 @@ server {
 
 site should appear on public ip directly
 
+
+---   to stop working  
+  use following command 
+  
+  --->   sudo supervisorctl stop all
+  ---->  sudo systemctl stop nginx
+  
+  ___.  to staart again use following commands
+  
+  -->   sudo supervisorctl start all
+  __.  get status of runnnug jobs
+  
+  -->  sudo supervisorctl status
+  -->  sudo start service nginx
+
  
 
 
